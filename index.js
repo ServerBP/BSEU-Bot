@@ -186,13 +186,13 @@ class TournamentBot {
 
     async getBeatleaderInfoByDiscord(user) {
         try {
-            const response = await fetch(`https://beatleader.xyz/api/player/discord/${user.id}`);
+            const response = await fetch(`https://api.beatleader.xyz/player/discord/${user.id}`);
             if (!response.ok) throw new Error('Failed to fetch player info');
             
             const playerData = await response.json();
             return {
                 name: playerData.name,
-                profilePicture: playerData.profilePicture,
+                profilePicture: playerData.avatar,
                 rank: playerData.rank,
                 countryRank: playerData.countryRank,
                 country: playerData.country,
@@ -206,13 +206,13 @@ class TournamentBot {
 
     async getBeatleaderInfoById(beatleaderId) {
         try {
-            const response = await fetch(`https://beatleader.xyz/api/player/${beatleaderId}`);
+            const response = await fetch(`https://api.beatleader.xyz/player/${beatleaderId}`);
             if (!response.ok) throw new Error('Failed to fetch player info');
             
             const playerData = await response.json();
             return {
                 name: playerData.name,
-                profilePicture: playerData.profilePicture,
+                profilePicture: playerData.avatar,
                 rank: playerData.rank,
                 countryRank: playerData.countryRank,
                 country: playerData.country,
@@ -226,15 +226,15 @@ class TournamentBot {
 
     async getBeatleaderInfoByName(beatleaderName) {
         try {
-            const response = await fetch(`https://beatleader.xyz/api/players?search=${encodeURIComponent(beatleaderName)}`);
+            const response = await fetch(`https://api.beatleader.xyz/players?search=${encodeURIComponent(beatleaderName)}`);
             if (!response.ok) throw new Error('Failed to fetch player info');
             
             const playerResults = await response.json();
-            const playerData = playerResults[0];
+            const playerData = playerResults.data[0];
 
             return {
                 name: playerData.name,
-                profilePicture: playerData.profilePicture,
+                profilePicture: playerData.avatar,
                 rank: playerData.rank,
                 countryRank: playerData.countryRank,
                 country: playerData.country,
